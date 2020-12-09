@@ -14,12 +14,11 @@ def get_arguments():
     else:
         return options
     
-def decrypt(message, shift):    
+def parse_lists(message, shift):    
     message_list = []
     ascii_reference = string.ascii_lowercase
     ascii_list = []
     char_list = []
-    cleartext = ""
     
     ## split ascii string into searchable list
     for char in message:
@@ -33,66 +32,51 @@ def decrypt(message, shift):
         char_list.append(char)
     for char in ascii_reference:
         char_list.append(char)
-    
+
     ## for decryption, you have to reverse the order of the list and make it double
     ## length to account for first shift num of characters
     #ascii_list = reversed(ascii_list)
     #for i in ascii_list:
     #    ascii_list.append(i)
         
-    length = 26-shift
+    dec_length = 26-shift
     end = 52-shift
     
-    char_list = char_list[length:end]
+    decrypt_list = char_list[dec_length:end]
+    
+    enc_length = 26 + shift
+    start = shift
+    encrypt_list = char_list[start:enc_length]
 
+    list_of_lists = [message_list, ascii_list, encrypt_list, decrypt_list]
+
+    return list_of_lists
     ## loop through characters in example_list, find the index of each letter in 
     ## ascii_list and shift it by 2, then append each character to the answer 
     ## string. To avoid out of range index, make special cases for 'y' and 'z'
     
-    
+
+def decrypt(character_list, message_list, ascii_list):
+    cleartext = ""
     for i in message_list:
         if i != " ":
             new_index = ascii_list.index(i)
-            new_char = char_list[new_index]
+            new_char = character_list[new_index]
             cleartext += new_char
         else:
             new_char = i
             cleartext += new_char
     return cleartext
  
-def encrypt(message, shift):    
-    message_list = []
-    ascii_reference = string.ascii_lowercase
-    ascii_list = []
-    char_list = []
-    ciphertext = ""
-
-    ## split ascii string into searchable list
-    for char in message:
-        message_list.append(char)
-    for char in ascii_reference:
-        ascii_list.append(char)
-
-    ## split example string into searchable list. To account for the last x
-    ## characters in the alphabet, make the list repeat itself once. where x
-    ## is given by the value in "shift"
-    for char in ascii_reference:
-        char_list.append(char)
-    for char in ascii_reference:
-        char_list.append(char)
-        
-    ## cut off the extra duplicates
-    length = 26 + shift
-    start = shift
-    char_list = char_list[start:length]
-
     ## loop through characters in example_list, find the index of each letter in 
     ## ascii_list and shift it by 2, then append each character to the answer 
     ## string. To avoid out of range index, make special cases for 'y' and 'z'
+def encrypt(character_list, message_list, ascii_list):
+    ciphertext = ""
     for i in message_list:
         if i != " ":
             new_index = ascii_list.index(i)
-            new_char = char_list[new_index]
+            new_char = character_list[new_index]
             ciphertext += new_char
         else:
             new_char = i
@@ -102,8 +86,30 @@ def encrypt(message, shift):
     
 options = get_arguments()
 shift = int(options.shift)
-
+ceasar_lists = parse_lists(options.message, shift)
 if not options.method:
-    print(encrypt(options.message, shift))
+    cipher_text = encrypt(ceasar_lists[2], ceasar_lists[0], ceasar_lists[1])
+    print(cipher_text)
 else:
-    print(decrypt(options.message, shift))
+    clear_text = decrypt(ceasar_lists[3], ceasar_lists[0], ceasar_lists[1])
+    print(clear_text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
