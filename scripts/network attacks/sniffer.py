@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import scapy.all as scapy
 from scapy.layers import http
+import sys
+
+local_interface = sys.argv[1:]
 
 
 def sniff(interface):
@@ -30,4 +33,4 @@ def process_sniffed_packet(packet):
 
 
 
-sniff("wlx1cbfce1ab809")
+sniff(local_interface)
