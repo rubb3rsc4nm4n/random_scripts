@@ -1,6 +1,11 @@
 import string
 import optparse
 
+print("##################################################")
+print("#       Ceasar Cipher encode/decode tool         #")
+print("##################################################")
+print("@rubb3rsc4nm4n")
+
 def get_arguments():
     parser= optparse.OptionParser()
     parser.add_option("-s", "--shift", dest="shift", help="Enter the shift value you would like to use in your cipher")
@@ -89,9 +94,11 @@ shift = int(options.shift)
 ceasar_lists = parse_lists(options.message, shift)
 if not options.method:
     cipher_text = encrypt(ceasar_lists[2], ceasar_lists[0], ceasar_lists[1])
+    print("Ciphertext:")
     print(cipher_text)
 else:
     clear_text = decrypt(ceasar_lists[3], ceasar_lists[0], ceasar_lists[1])
+    print("Cleartext:")
     print(clear_text)
 
 
