@@ -1,5 +1,6 @@
 # Random Scripts
 Test repository for some sample scripts I have written and use in penetration testing labs, such as HackTheBox, Dante, Proving Grounds, WebGoat, and DVWA. The Network Attack scripts are all written in python and are intended for use in legal ethical hacking and security research. Do NOT attempt to use any of these tools against any machine that you do not own or have written, legally-binding permission to do so. With that said, spin up a virtual network and have fun with these scripts! 
+
 Note: Not all of them are finished, so if you see something that needs fixing, feel free to let me know! I am open to helpful feedback. 
 
 ## Python Scripts
